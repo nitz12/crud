@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:crud/db_helper.dart';
+import 'package:crud/DataModel.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -100,8 +101,10 @@ class _HomePageState extends State<HomePage> {
 
 // Insert a new data to the database
   Future<void> addItem() async {
-    await DatabaseHelper.createItem(
-        _titleController.text, _descriptionController.text);
+    ClassDataModel newItem = ClassDataModel(
+        title: _titleController.text, desc: _descriptionController.text);
+
+    await DatabaseHelper.createItem(newItem);
     _refreshData();
   }
 

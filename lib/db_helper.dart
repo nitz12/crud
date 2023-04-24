@@ -1,4 +1,5 @@
 import 'package:flutter/foundation.dart';
+import 'package:crud/DataModel.dart';
 import 'package:sqflite/sqflite.dart' as sql;
 
 class DatabaseHelper {
@@ -22,10 +23,10 @@ class DatabaseHelper {
     );
   }
 
-  static Future<int> createItem(String? title, String? descrption) async {
+  static Future<int> createItem(ClassDataModel item) async {
     final db = await DatabaseHelper.db();
 
-    final data = {'title': title, 'description': descrption};
+    final data = item.toMap();
     final id = await db.insert('items', data,
         conflictAlgorithm: sql.ConflictAlgorithm.replace);
     return id;
